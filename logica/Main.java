@@ -18,9 +18,9 @@ public class Main {
 
 	public static Pokemon buscarEnPokedex(String nombrePokemon) {
 		for (Pokemon poke : listaPokedex) {
-			if (poke.getNombre().equalsIgnoreCase(nombrePokemon))
-				;
-			return poke;
+			if (poke.getNombre().equalsIgnoreCase(nombrePokemon)) {
+				return poke;
+			}
 		}
 		return null;
 	}
