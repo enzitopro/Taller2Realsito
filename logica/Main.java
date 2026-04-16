@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 public class Main {
 	public static ArrayList<Pokemon> listaPokedex = new ArrayList<>();
 	public static ArrayList<Zona> listaZonas = new ArrayList<>();
+	public static ArrayList<Gimnasio> listaGimnasios = new ArrayList<>();
 	
 	public static void main(String[] args) {
 		leerPokedex();
@@ -37,6 +38,14 @@ public class Main {
 			System.out.println("No se encontró el archivo de PokeDex.");
 		}
 		
+	}
+	
+	public static Pokemon buscarEnPokedex(String nombrePokemon) {
+        for (Pokemon poke : listaPokedex) {
+            if (poke.getNombre().equalsIgnoreCase(nombrePokemon));
+            return poke;
+        }
+        return null;
 	}
 	
 	public static void leerHabitats() {
