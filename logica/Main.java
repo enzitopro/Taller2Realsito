@@ -53,7 +53,56 @@ public class Main {
 
 		System.out.println(listaPokedex.size());
 	}
-
+	
+	public static void menuJuego(Jugador protagonista, Scanner lector) {
+		boolean salirMenu = false;
+		while (!salirMenu) {
+			System.out.println("1) Revisar Equipo.");
+			System.out.println("2) Salir a capturar");
+			System.out.println("3) Acceso al PC (cambiar equipo)");
+			System.out.println("4) Retar un gimnasio");
+			System.out.println("5) Desafío al Alto Mando");
+			System.out.println("6) Curar Pokémon");
+			System.out.println("7) Guardar y continuar.");
+			System.out.println("8) Guardar y salir.");
+		}
+		try {
+			int opcion = Integer.valueOf(lector.nextLine());
+			switch (opcion) {
+			case 1:
+				revisarEquipo(protagonista);
+				break;
+			case 2:
+				capturarPokemon(protagonista, lector);
+				break;
+			case 3:
+				accederPC(protagonista, lector);
+				break;
+			case 4:
+				retarGimnasio();
+				break;
+			case 5:
+				desafiarAltoMando();
+				break;
+			case 6:
+				curarPokemon();
+				break;
+			case 7:
+				guardarContinuar();
+				break;
+			case 8:
+				guardarSalir();
+				salirMenu = true;
+				break;
+			default:
+				System.out.println("Opcion no encontrada");
+			}
+		} catch (Exception e) {
+			System.out.println("ERROR: Ingrese un número válido.");
+		}
+	}
+	
+	
 	public static Pokemon buscarEnPokedex(String nombrePokemon) {
 		for (Pokemon poke : listaPokedex) {
 			if (poke.getNombre().equalsIgnoreCase(nombrePokemon)) {
