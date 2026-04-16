@@ -38,4 +38,18 @@ public class Main {
 		}
 		
 	}
+	
+	public static void leerHabitats() {
+		try {
+			File habitats = new File("Habitats.txt");
+			Scanner lector = new Scanner(habitats);
+			while (lector.hasNextLine()) {
+				String zonaLeida = lector.nextLine();
+				Zona nuevaZona = new Zona(zonaLeida);
+				listaZonas.add(nuevaZona);
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("No se encontro el archivo de Habitats.");
+		}
+	}
 }
