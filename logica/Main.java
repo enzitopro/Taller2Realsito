@@ -12,7 +12,45 @@ public class Main {
 	public static ArrayList<AltoMando> listaAltosMandos = new ArrayList<>();
 
 	public static void main(String[] args) {
+		// abrir los archivos al iniciar el programa
+		Scanner lector = new Scanner(System.in);
+		boolean salir = false;
 		leerPokedex();
+		leerHabitats();
+		leerGimnasios();
+		leerAltoMando();
+		while (!salir) {
+			System.out.println("POKEMON EN JAVA!!!!!!!!!");
+			System.out.println("");
+			System.out.println("1) Continuar.");
+			System.out.println("2) Nueva Partida");
+			System.out.println("3) Salir.");
+		}
+		try {
+			int opcion = Integer.valueOf(lector.nextLine());
+
+			switch (opcion) {
+			case 1:
+				break;
+			case 2:
+				System.out.println("--NUEVO JUGADOR--");
+				System.out.println("Ingrese su apodo: ");
+				String nombreIngresado = lector.nextLine();
+				Jugador nuevoJugador = new Jugador(nombreIngresado, "none");
+				System.out.println("Bienvenido " + nuevoJugador.getNombre() + "!!");
+
+				break;
+			case 3:
+				System.out.println("Saliendo del juego...");
+				salir = true;
+				break;
+			default:
+				System.out.println("Opcion no encontrada.");
+			}
+		} catch (Exception e) {
+			System.out.println("ERROR: Ingrese un número válido.");
+		}
+
 		System.out.println(listaPokedex.size());
 	}
 
