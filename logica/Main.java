@@ -207,4 +207,21 @@ public class Main {
 			System.out.println("No se encontró el archivo de Alto Mando.");
 		}
 	}
+	
+	//metodos menu juego
+	public static void revisarEquipo(Jugador protagonista) {
+		System.out.println("--- EQUIPO ACTUAL ---");
+		ArrayList<Pokemon> miEquipo = protagonista.getEquipo();
+		
+		if (miEquipo.isEmpty()) {
+			System.out.println("Tu equipo esta vacío. ¡Ve a capturar algunos pokémon!");
+			return;
+		}
+		
+		for (int i = 0; i < miEquipo.size(); i++) {
+			Pokemon p = miEquipo.get(i);
+			int suma = p.getSumaStats();
+			System.out.println((i+1) +")"+p.getNombre()+"|"+p.getTipo()+"|Stats totales: "+suma);
+		}
+	}
 }
