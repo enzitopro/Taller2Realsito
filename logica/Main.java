@@ -15,8 +15,8 @@ public class Main {
 		// abrir los archivos al iniciar el programa
 		Scanner lector = new Scanner(System.in);
 		boolean salir = false;
-		leerPokedex();
 		leerHabitats();
+		leerPokedex();
 		leerGimnasios();
 		leerAltoMando();
 		while (!salir) {
@@ -110,6 +110,15 @@ public class Main {
 		}
 		return null;
 	}
+	
+	public static Zona buscarZona(String nombreZona) {
+		for (Zona z : listaZonas) {
+			if (z.getNombre().equalsIgnoreCase(nombreZona)) {
+				return z;
+			}
+		}
+		return null;
+	}
 
 	public static void leerPokedex() {
 		try {
@@ -128,6 +137,10 @@ public class Main {
 				Pokemon nuevoPoke = new Pokemon(partes[0], partes[1], spawnChance, vidaPoke, ataquePoke, defensaPoke,
 						ataqueEspPoke, defensaEspPoke, velocidadPoke, partes[9]);
 				listaPokedex.add(nuevoPoke);
+				Zona zonaPokemon = buscarZona(partes[1]);
+				if (zonaPokemon != null) {
+					zonaPokemon.getPokemonsHabitat().add(nuevoPoke);
+				}
 			}
 			lector.close();
 
@@ -207,21 +220,47 @@ public class Main {
 			System.out.println("No se encontró el archivo de Alto Mando.");
 		}
 	}
-	
-	//metodos menu juego
+
+	// metodos menu juego
 	public static void revisarEquipo(Jugador protagonista) {
 		System.out.println("--- EQUIPO ACTUAL ---");
 		ArrayList<Pokemon> miEquipo = protagonista.getEquipo();
-		
+
 		if (miEquipo.isEmpty()) {
 			System.out.println("Tu equipo esta vacío. ¡Ve a capturar algunos pokémon!");
 			return;
 		}
-		
+
 		for (int i = 0; i < miEquipo.size(); i++) {
 			Pokemon p = miEquipo.get(i);
 			int suma = p.getSumaStats();
-			System.out.println((i+1) +")"+p.getNombre()+"|"+p.getTipo()+"|Stats totales: "+suma);
+			System.out.println((i + 1) + ")" + p.getNombre() + "|" + p.getTipo() + "|Stats totales: " + suma);
+		}
+	}
+
+	public static void capturarPokemon(Jugador protagonista, Scanner lector) {
+		System.out.println("---Que zona deseas explorar?---");
+		for (int i=0; i < listaZonas.size();i++) {
+			Zona zona = listaZonas.get(i);
+			System.out.println((i+1)+")"+zona.getNombre());
+			System.out.println("0) Volver al menu.");
+		}
+		try {
+			System.out.println("Ingrese Zona: ");
+			int opcion = Integer.valueOf(lector.nextLine());
+			if (opcion == 0) {
+				return;
+			}
+			else if (opcion>0 && opcion <= listaZonas.size()) {
+				Zona zonaElegida = listaZonas.get(opcion-1);
+				System.out.println("Explorando "+zonaElegida.getNombre()+"...");
+				
+				
+			} else {
+				System.out.println("Esa zona no existe.");
+			}
+		} catch (Exception e) {
+			System.out.println("ERROR: Ingrese un número válido.");
 		}
 	}
 }
