@@ -80,7 +80,7 @@ public class Main {
 					accederPC(protagonista, lector);
 					break;
 				case 4:
-					//retarGimnasio();
+					retarGimnasio(protagonista, lector);
 					break;
 				case 5:
 					//desafiarAltoMando();
@@ -419,7 +419,32 @@ public class Main {
 						enCombate = false;
 						break;
 					} else if (accion == 1) {
+						Pokemon primero, segundo;
+						if (miLuchador.getVelocidad() >= rival.getVelocidad()) {
+							primero = miLuchador; segundo = rival;
+						} else {
+							primero = rival; segundo = miLuchador;
+						}
 						
+						ejecutarAtaque(primero, segundo);
+						
+						if (segundo.getVida() > 0) {
+							ejecutarAtaque(segundo, primero);
+						}
+						
+						if (miLuchador.getVida() <= 0) {
+							miLuchador.setVida(0);
+							miLuchador.setEstado("Debilitado");
+							System.out.println("¡Tu " +miLuchador.getNombre() + " se ha debilitado!");
+							enCombate = false;
+						}
+						if (rival.getVida() <= 0) {
+							rival.setVida(0);
+							rival.setEstado("Debilitado");
+							System.out.println("¡El " + rival.getNombre() + " rival se ha debilitado!");
+							System.out.println("Has ganado este duelo!!!");
+							enCombate = false;
+						}
 					}
 				}
 				
@@ -429,7 +454,7 @@ public class Main {
 		}
 	}
 	
-	public static void ejectuarAtaque(Pokemon atacante, Pokemon defensor) {
+	public static void ejecutarAtaque(Pokemon atacante, Pokemon defensor) {
 		System.out.println("-> ¡" +atacante.getNombre() + " ataca!");
 		double multiplicador = TablaTipos.multiplicadorAtaque(atacante.getTipo(), defensor.getTipo());
 		
