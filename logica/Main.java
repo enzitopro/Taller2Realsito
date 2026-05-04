@@ -254,8 +254,43 @@ public class Main {
 			else if (opcion>0 && opcion <= listaZonas.size()) {
 				Zona zonaElegida = listaZonas.get(opcion-1);
 				System.out.println("Explorando "+zonaElegida.getNombre()+"...");
+				ArrayList<Pokemon> salvajes = zonaElegida.getPokemonsHabitat();
 				
+				if (salvajes.isEmpty()) {
+					System.out.println("No parece haber ningun Pokemon ahora...");
+					return;
+				}
 				
+				double probabilidadAleatoria = Math.random() * 100;
+				Pokemon pokemonEncontrado = null;
+				double probAcumulada = 0;
+				
+				for (Pokemon p : salvajes) {
+					probAcumulada += p.getPorcentajeAparicion();
+					if (probabilidadAleatoria <= probAcumulada) {
+						pokemonEncontrado = p;
+						break;
+					}
+				}
+				if (pokemonEncontrado == null) {
+					pokemonEncontrado = salvajes.get(0);
+				}
+				
+				System.out.println("Un " + pokemonEncontrado.getNombre() + " salvaje ha aparecido");
+				System.out.println("1) Lanzar Pokeball");
+				System.out.println("2) Huir");
+				
+				int accion = Integer.valueOf(lector.nextLine());
+				if (accion == 1) {
+					System.out.println("¡Has atrapado a " + pokemonEncontrado.getNombre() + "!");
+					Pokemon nuevoAtrapado = new Pokemon(pokemonEncontrado.getNombre(), pokemonEncontrado.getHabitat(), 
+							pokemonEncontrado.getPorcentajeAparicion(), pokemonEncontrado.getVida(), pokemonEncontrado.getAtaque(), 
+							pokemonEncontrado.getDefensa(), pokemonEncontrado.getAtaqueEspecial(), pokemonEncontrado.getDefensaEspecial(), 
+							pokemonEncontrado.getVelocidad(), pokemonEncontrado.getTipo());
+					protagonista.getMisPokemons().add(nuevoAtrapado);
+				} else {
+					System.out.println("Escapaste sin problemas");
+				}
 			} else {
 				System.out.println("Esa zona no existe.");
 			}
