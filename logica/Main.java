@@ -25,12 +25,13 @@ public class Main {
 			System.out.println("1) Continuar.");
 			System.out.println("2) Nueva Partida");
 			System.out.println("3) Salir.");
-		}
+		
 		try {
 			int opcion = Integer.valueOf(lector.nextLine());
 
 			switch (opcion) {
 			case 1:
+				System.out.println("WIP...");
 				break;
 			case 2:
 				System.out.println("--NUEVO JUGADOR--");
@@ -38,7 +39,7 @@ public class Main {
 				String nombreIngresado = lector.nextLine();
 				Jugador nuevoJugador = new Jugador(nombreIngresado, "none");
 				System.out.println("Bienvenido " + nuevoJugador.getNombre() + "!!");
-
+				menuJuego(nuevoJugador, lector);
 				break;
 			case 3:
 				System.out.println("Saliendo del juego...");
@@ -51,7 +52,8 @@ public class Main {
 			System.out.println("ERROR: Ingrese un número válido.");
 		}
 
-		System.out.println(listaPokedex.size());
+		// System.out.println(listaPokedex.size());
+		}
 	}
 
 	public static void menuJuego(Jugador protagonista, Scanner lector) {
@@ -78,19 +80,19 @@ public class Main {
 					accederPC(protagonista, lector);
 					break;
 				case 4:
-					retarGimnasio();
+					//retarGimnasio();
 					break;
 				case 5:
-					desafiarAltoMando();
+					//desafiarAltoMando();
 					break;
 				case 6:
-					curarPokemon();
+					//curarPokemon();
 					break;
 				case 7:
-					guardarContinuar();
+					//guardarContinuar();
 					break;
 				case 8:
-					guardarSalir();
+					//guardarSalir();
 					salirMenu = true;
 					break;
 				default:
@@ -243,8 +245,8 @@ public class Main {
 		for (int i=0; i < listaZonas.size();i++) {
 			Zona zona = listaZonas.get(i);
 			System.out.println((i+1)+")"+zona.getNombre());
-			System.out.println("0) Volver al menu.");
 		}
+		System.out.println("0) Volver al menu.");
 		try {
 			System.out.println("Ingrese Zona: ");
 			int opcion = Integer.valueOf(lector.nextLine());
@@ -296,6 +298,52 @@ public class Main {
 			}
 		} catch (Exception e) {
 			System.out.println("ERROR: Ingrese un número válido.");
+		}
+	}
+	
+	public static void accederPC(Jugador protagonista, Scanner lector) {
+		ArrayList<Pokemon> todos = protagonista.getMisPokemons();
+		
+		if (todos.size() <= 6) {
+			System.out.println("No tienes suficientes Pokemon para usar el PC. (Tienes " + todos.size()+ "/6 en tu equipo)");
+			return;
+		}
+		
+		boolean enPC = true;
+		while (enPC) {
+			System.out.println("\n=== SISTEMA DE ALMACENAMIENTO POKEMON ===");
+			System.out.println("--- TU EQUIPO ACTUAL ---");
+			for (int i=0; i<6; i++) {
+				System.out.println(i + ") " + todos.get(i).getNombre());
+			}
+			System.out.println("\n¿Qué deseas hacer?");
+			System.out.println("1) Intercambiar un Pokémon");
+			System.out.println("0) Salir del PC");
+			
+			try {
+				int opcion = Integer.valueOf(lector.nextLine());
+				if (opcion == 0) {
+					enPC = false;
+				} else if (opcion == 1) {
+					System.out.print("Ingresa el numero del Pokemon de TU EQUIPO que quieres guardar (0-5): ");
+					int indexEquipo = Integer.valueOf(lector.nextLine());
+					
+					System.out.print("Ingresa el numero del Pokemon del PC que quieres sacar: ");
+					int indexCaja = Integer.valueOf(lector.nextLine());
+					
+					if (indexEquipo>=0 && indexEquipo < 6 && indexCaja >= 6 && indexCaja < todos.size()) {
+						Pokemon temporal = todos.get(indexEquipo);
+						todos.set(indexEquipo, todos.get(indexCaja));
+						todos.set(indexCaja, temporal);
+						
+						System.out.println("¡Cambio realizado con exito!");
+					} else {
+						System.out.println("Indices incorrectos. Intenta de nuevo.");
+					}
+				}
+			} catch (Exception e) {
+				System.out.println("Entrada invalida.");
+			}
 		}
 	}
 }
