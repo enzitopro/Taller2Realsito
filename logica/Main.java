@@ -372,9 +372,80 @@ public class Main {
 				ArrayList<Pokemon> equipoLider = gymElegido.getEquipoLider();
 				System.out.println("\nEl lider "+gymElegido.getNombreLider()+" te desafía a un combate!");
 				
+				Pokemon miLuchador = null;
+				Pokemon rival = null;
+				
+				//conseguir nuestro pokemon
+				for (Pokemon p : miEquipo) {
+					if (p.getEstado().equals("Vivo") && p.getVida() < 0) {
+						miLuchador = p;
+						break;
+					}
+				}
+				
+				//conseguir pokemon del rival
+				for (Pokemon p : equipoLider) {
+					if (p.getEstado().equals("Vivo") && p.getVida() > 0) {
+						rival = p;
+						break;
+					}
+				}
+				
+				if (miLuchador == null) {
+					System.out.println("Todo tu equipo está debilitado. Ve al Centro Pokemon!");
+					return;
+				}
+				
+				if (rival == null) {
+					System.out.println("Este lider ya no tiene Pokemon para pelear!");
+					return;
+				}
+				
+				System.out.println("¡Adelante, " + miLuchador.getNombre() + "!");
+				System.out.println("El Lider " + gymElegido.getNombreLider() + " envia a " + rival.getNombre()+"!");
+				
+				boolean enCombate = true;
+				
+				while (enCombate) {
+					System.out.println("\n--- TURNO ---");
+					System.out.println("Tú: " + miLuchador.getNombre() + " (HP: " + miLuchador.getVida() + ") | Tipo: " + miLuchador.getTipo());
+					System.out.println("Rival: " + rival.getNombre() + " (HP: " + rival.getVida() + ") | Tipo: " + rival.getTipo());
+					System.out.println("1) Atacar / 2) Huir");
+					
+					int accion = Integer.valueOf(lector.nextLine());
+					
+					if (accion == 2) {
+						System.out.println("Escapaste del combate!");
+						enCombate = false;
+						break;
+					} else if (accion == 1) {
+						
+					}
+				}
+				
 			}
 		} catch (Exception e) {
 			System.out.println("Entrada no valida");
 		}
+	}
+	
+	public static void ejectuarAtaque(Pokemon atacante, Pokemon defensor) {
+		System.out.println("-> ¡" +atacante.getNombre() + " ataca!");
+		double multiplicador = TablaTipos.multiplicadorAtaque(atacante.getTipo(), defensor.getTipo());
+		
+		double danoBase = atacante.getAtaque() - (defensor.getDefensa() * 0.5);
+		if (danoBase < 1) danoBase = 1;
+		
+		int danoTotal = (int) (danoBase * multiplicador);
+		if (multiplicador > 1.0) {
+			System.out.println("  ¡Es super efectivo!");
+		} else if (multiplicador < 1.0 && multiplicador > 0) {
+			System.out.println("  No es muy efectivo...");
+		} else if (multiplicador == 0) {
+			System.out.println("  No afecta a " + defensor.getNombre() +"...");
+		}
+		
+		System.out.println("  " + defensor.getNombre() + " recibe " + danoTotal + " puntos de daño.");
+		defensor.setVida(defensor.getVida()-danoTotal);
 	}
 }
