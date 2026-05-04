@@ -244,7 +244,7 @@ public class Main {
 		System.out.println("---Que zona deseas explorar?---");
 		for (int i=0; i < listaZonas.size();i++) {
 			Zona zona = listaZonas.get(i);
-			System.out.println((i+1)+")"+zona.getNombre());
+			System.out.println((i+1)+") "+zona.getNombre());
 		}
 		System.out.println("0) Volver al menu.");
 		try {
@@ -344,6 +344,37 @@ public class Main {
 			} catch (Exception e) {
 				System.out.println("Entrada invalida.");
 			}
+		}
+	}
+	
+	public static void retarGimnasio(Jugador protagonista, Scanner lector) {
+		ArrayList<Pokemon> miEquipo = protagonista.getEquipo();
+		
+		if (miEquipo.isEmpty()) {
+			System.out.println("No tienes Pokemon! Ve a capturar!");
+			return;
+		}
+		
+		System.out.println("\n=== LIGA POKÉMON ===");
+		for (int i=0; i<listaGimnasios.size(); i++) {
+			Gimnasios g = listaGimnasios.get(i);
+			System.out.println((i+1)+") Gimnasio "+ g.getNumeroGimnasio()+" - Lider: "+g.getNombreLider()+ " ["+g.getEstadoLider()+"]");
+		}
+		System.out.println("0) Volver");
+		
+		try {
+			System.out.println("Elige un Gimnasio para retar: ");
+			int opcion = Integer.valueOf(lector.nextLine());
+			if (opcion == 0) return;
+			
+			if (opcion > 0 && opcion <= listaGimnasios.size()) {
+				Gimnasios gymElegido = listaGimnasios.get(opcion);
+				ArrayList<Pokemon> equipoLider = gymElegido.getEquipoLider();
+				System.out.println("\nEl lider "+gymElegido.getNombreLider()+" te desafía a un combate!");
+				
+			}
+		} catch (Exception e) {
+			System.out.println("Entrada no valida");
 		}
 	}
 }
