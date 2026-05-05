@@ -25,6 +25,7 @@ public class Main {
 			System.out.println("1) Continuar.");
 			System.out.println("2) Nueva Partida");
 			System.out.println("3) Salir.");
+			System.out.print("Ingrese una opcion: ");
 
 			try {
 				int opcion = Integer.valueOf(lector.nextLine());
@@ -38,7 +39,7 @@ public class Main {
 					break;
 				case 2:
 					System.out.println("--NUEVO JUGADOR--");
-					System.out.println("Ingrese su apodo: ");
+					System.out.print("Ingrese su apodo: ");
 					String nombreIngresado = lector.nextLine();
 					Jugador nuevoJugador = new Jugador(nombreIngresado, "none");
 					System.out.println("Bienvenido " + nuevoJugador.getNombre() + "!!");
@@ -71,6 +72,7 @@ public class Main {
 			System.out.println("6) Curar Pokémon");
 			System.out.println("7) Guardar y continuar.");
 			System.out.println("8) Guardar y salir.");
+			System.out.print("Ingrese opcion: ");
 			try {
 				int opcion = Integer.valueOf(lector.nextLine());
 				switch (opcion) {
@@ -256,7 +258,7 @@ public class Main {
 		}
 		System.out.println("0) Volver al menu.");
 		try {
-			System.out.println("Ingrese Zona: ");
+			System.out.print("Ingrese Zona: ");
 			int opcion = Integer.valueOf(lector.nextLine());
 			if (opcion == 0) {
 				return;
@@ -294,6 +296,7 @@ public class Main {
 				System.out.println("Un " + pokemonEncontrado.getNombre() + " salvaje ha aparecido");
 				System.out.println("1) Lanzar Pokeball");
 				System.out.println("2) Huir");
+				System.out.print("Ingrese opcion: ");
 
 				int accion = Integer.valueOf(lector.nextLine());
 				if (accion == 1) {
@@ -335,6 +338,7 @@ public class Main {
 			System.out.println("\n¿Qué deseas hacer?");
 			System.out.println("1) Intercambiar un Pokémon");
 			System.out.println("0) Salir del PC");
+			System.out.print("Ingrese opcion: ");
 
 			try {
 				int opcion = Integer.valueOf(lector.nextLine());
@@ -380,7 +384,7 @@ public class Main {
 		System.out.println("0) Volver");
 
 		try {
-			System.out.println("Elige un Gimnasio para retar: ");
+			System.out.print("Elige un Gimnasio para retar: ");
 			int opcion = Integer.valueOf(lector.nextLine());
 			if (opcion == 0)
 				return;
@@ -431,6 +435,7 @@ public class Main {
 					System.out.println("Rival: " + rival.getNombre() + " (HP: " + rival.getVida() + ") | Tipo: "
 							+ rival.getTipo());
 					System.out.println("1) Atacar / 2) Huir");
+					System.out.print("Ingrese su accion: ");
 
 					int accion = Integer.valueOf(lector.nextLine());
 
@@ -473,7 +478,7 @@ public class Main {
 							} else {
 								System.out.println("\n¡Ya no te quedan Pokemon vivos!");
 								System.out.println(
-										"Has perdido el combate. " + gymElegido.getNombreLider() + " te ha deerrotado");
+										"Has perdido el combate. " + gymElegido.getNombreLider() + " te ha derrotado");
 								enCombate = false;
 							}
 						}
@@ -632,6 +637,7 @@ public class Main {
 					System.out.println("Rival: " + rival.getNombre() + " (HP: " + rival.getVida() + ") | Tipo: "
 							+ rival.getTipo());
 					System.out.println("1) Atacar / 2) Huir");
+					System.out.print("Ingrese su opcion: ");
 
 					int accion = Integer.valueOf(lector.nextLine());
 					if (accion == 2) {
