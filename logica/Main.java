@@ -31,7 +31,10 @@ public class Main {
 
 				switch (opcion) {
 				case 1:
-					System.out.println("WIP...");
+					Jugador jugadorGuardado = cargarPartida();
+					if (jugadorGuardado != null) {
+						menuJuego(jugadorGuardado, lector);
+					}
 					break;
 				case 2:
 					System.out.println("--NUEVO JUGADOR--");
@@ -670,9 +673,11 @@ public class Main {
 								}
 								if (siguienteRival != null) {
 									rival = siguienteRival;
-									System.out.println("\n¡El Alto Mando " + amElegido.getNombreAltoMando() +" ha sacado a su " +rival.getNombre()+"!");
+									System.out.println("\n¡El Alto Mando " + amElegido.getNombreAltoMando()
+											+ " ha sacado a su " + rival.getNombre() + "!");
 								} else {
-									System.out.println("\n¡Felicidades! Has derrotado al Alto Mando " + amElegido.getNombreAltoMando()+"!");
+									System.out.println("\n¡Felicidades! Has derrotado al Alto Mando "
+											+ amElegido.getNombreAltoMando() + "!");
 									enCombate = false;
 								}
 							}
@@ -705,4 +710,48 @@ public class Main {
 			System.out.println("ERROR AL GUARDAR LA PARTIDA");
 		}
 	}
+
+	// metodo para cargar partida
+	public static Jugador cargarPartida() {
+		try {
+			java.io.BufferedReader lectorArchivo = new java.io.BufferedReader(new java.io.FileReader("registros.txt"));
+			
+			String datosJugador = lectorArchivo.readLine();
+			if (datosJugador == null) {
+				System.out.println("El archivo está vacío.");
+				lectorArchivo.close();
+				return null;
+			}
+				String[] partesJugador = datosJugador.split(";");
+				Jugador protaCargado = new Jugador(partesJugador[0], partesJugador[1]);
+				lectorArchivo.readLine();
+				
+				String lineaPoke;
+				while ((lineaPoke = lectorArchivo.readLine()) != null) {
+					String[] partesPoke = lineaPoke.split(";");
+					String nombrePoke = partesPoke[0];
+					String estadoPoke = partesPoke[1];
+					Pokemon base = buscarEnPokedex(nombrePoke);
+					
+					if (base != null) {
+						Pokemon clon = new Pokemon(base.getNombre(), base.getHabitat(), base.getPorcentajeAparicion(), base.getVida(), base.getAtaque(), base.getDefensa(), base.getAtaqueEspecial(), base.getDefensaEspecial(), base.getVelocidad(), base.getTipo());
+						clon.setEstado(estadoPoke);
+						clon.setVidaMaxima(base.getVida());
+						if (estadoPoke.equals("Debilitado")) {
+							clon.setVida(0);
+						}
+						protaCargado.getMisPokemons().add(clon);
+					}
+				}
+				lectorArchivo.close();
+				System.out.println("¡Partida cargada exitosamente! Bienvenido de vuelta, " + protaCargado.getNombre() +".");
+				return protaCargado;
+		} catch (java.io.FileNotFoundException e) {
+			System.out.println("No hay ninguna partida guardada");
+		} catch (Exception e) {
+			System.out.println("Error al cargar el archivo guardado");
+		}
+		return null;
+	}
+	
 }
