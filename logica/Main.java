@@ -533,4 +533,76 @@ public class Main {
 		
 		System.out.println("Enfermera Joy: ¡Tus Pokemon estan en perfecto estado!");
 	}
+	
+	public static void desafiarAltoMando(Jugador protagonista, Scanner lector) {
+		ArrayList<Pokemon> miEquipo = protagonista.getEquipo();
+		
+		if (miEquipo.isEmpty()) {
+			System.out.println("¡No tienes Pokemon! Ve a capturar primero.");
+			return;
+		}
+		System.out.println("\n=== LIGA POKEMON: ALTO MANDO ===");
+		for (int i=0; i<listaAltosMandos.size(); i++) {
+			AltoMando am = listaAltosMandos.get(i);
+			System.out.println((i+1)+") Alto Mando -"+am.getNombreAltoMando());
+		}
+		System.out.println("0) Volver");
+		try {
+			System.out.print("Elige a quien retar: ");
+			int opcion = Integer.valueOf(lector.nextLine());
+			
+			if (opcion == 0) return;
+			
+			if (opcion > 0 && opcion <= listaAltosMandos.size()) {
+				AltoMando amElegido = listaAltosMandos.get(opcion-1);
+				ArrayList<Pokemon> equipoRival = amElegido.getEquipoAltoMando();
+				
+				System.out.println("\n¡El Alto Mando "+amElegido.getNombreAltoMando()+" te desafia a un combate definitivo!");
+				
+				Pokemon miLuchador = null;
+				Pokemon rival = null;
+				
+				for (Pokemon p : miEquipo) {
+					if (p.getEstado().equals("Vivo") && p.getVida()>0) {
+						miLuchador = p;
+						break;
+					}
+				}
+				for (Pokemon p : equipoRival) {
+					if (p.getEstado().equals("Vivo") && p.getVida() >0) {
+						rival = p;
+						break;
+					}
+				}
+				if (miLuchador==null) {
+					System.out.println("Todo tu equipo está debilitado!");
+					return;
+				}
+				if (rival == null) {
+					System.out.println("Este miembro del Alto Mando no tiene Pokemon vivos!");
+					return;
+				}
+				
+				System.out.println("¡Adelante, " +miLuchador.getNombre()+"!");
+				System.out.println("¡El Alto Mando " + amElegido.getNombreAltoMando()+" envía a "+rival.getNombre()+"!");
+				
+				boolean enCombate = true;
+				
+				while (enCombate) {
+					System.out.println("\n --- TURNO ---");
+					System.out.println("");
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Entrada invalida.");
+		}
+	}
+	
+	public static void guardarPartida(Jugador protagonista) {
+		try {
+			java.io.BufferedWriter escritor = new java.io.BufferedWriter(new java.io.FileWriter("registros.txt"));
+		} catch (Exception e) {
+			System.out.println("ERROR AL GUARDAR LA PARTIDA");
+		}
+	}
 }
