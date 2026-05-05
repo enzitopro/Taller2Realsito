@@ -482,6 +482,13 @@ public class Main {
 							} else {
 								System.out.println("\n¡Felicidades! Has derrotado al Lider " + gymElegido.getNombreLider() +"!");
 								gymElegido.setEstadoLider("Derrotado");
+								
+								if (protagonista.getMedallas().equals("none")) {
+									protagonista.setMedallas(gymElegido.getNombreLider());
+								} else {
+									protagonista.setMedallas(protagonista.getMedallas()+","+gymElegido.getNombreLider());
+								}
+								
 								enCombate = false;
 							}
 						}
