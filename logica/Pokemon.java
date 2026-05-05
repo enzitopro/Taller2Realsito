@@ -6,6 +6,7 @@ public class Pokemon {
 	private String habitat;
 	private double porcentajeAparicion;
 	private int vida;
+	private int vidaMaxima;
 	private int ataque;
 	private int defensa;
 	private int ataqueEspecial;
@@ -22,6 +23,7 @@ public class Pokemon {
 		this.habitat = habitat;
 		this.porcentajeAparicion = porcentajeAparicion;
 		this.vida = vida;
+		this.setVidaMaxima(vida);
 		this.ataque = ataque;
 		this.defensa = defensa;
 		this.ataqueEspecial = ataqueEspecial;
@@ -122,5 +124,13 @@ public class Pokemon {
 	
 	public int getSumaStats() {
 		return vida+ataque+defensa+ataqueEspecial+defensaEspecial+velocidad;
+	}
+
+	public int getVidaMaxima() {
+		return vidaMaxima;
+	}
+
+	public void setVidaMaxima(int vidaMaxima) {
+		this.vidaMaxima = vidaMaxima;
 	}
 }
