@@ -597,8 +597,44 @@ public class Main {
 				
 				while (enCombate) {
 					System.out.println("\n --- TURNO ---");
-					System.out.println("");
+					System.out.println("Tu " +miLuchador.getNombre() + " (HP: " + miLuchador.getVida() +") | Tipo: "+miLuchador.getTipo());
+					System.out.println("Rival: " + rival.getNombre() + " (HP: "+rival.getVida()+") | Tipo: "+rival.getTipo());
+					System.out.println("1) Atacar / 2) Huir");
+					
+					int accion = Integer.valueOf(lector.nextLine());
+					if (accion == 2) {
+						System.out.println("Escapaste del combate...");
+						enCombate = false;
+					} else if (accion == 1 ){
+						Pokemon primero = (miLuchador.getVelocidad()) >= rival.getVelocidad() ? miLuchador : rival;
+						Pokemon segundo = (primero == miLuchador) ? rival : miLuchador;
+						
+						ejecutarAtaque(primero, segundo);
+						if (segundo.getVida() > 0) ejecutarAtaque(segundo, primero);
+						
+						if (miLuchador.getVida() <= 0) {
+							miLuchador.setVida(0); miLuchador.setEstado("Debilitado");
+							System.out.println("¡Tu " +miLuchador.getNombre() + " se ha debilitado!");
+							
+							Pokemon siguiente = null;
+							for (Pokemon p : miEquipo) {
+								if (p.getEstado().equals("Vivo") && p.getVida() > 0) {
+									siguiente = p;
+									break;
+								}
+							}
+							if (siguiente != null) {
+								miLuchador = siguiente;
+								System.out.println("\n¡Adelante, "+miLuchador.getNombre()+"!");
+							} else {
+								System.out.println("\n¡Ya no te quedan Pokemon vivos! " + amElegido.getNombreAltoMando() + " te ha derrotado...");
+								enCombate = false;
+							}
+						}
+					}
 				}
+			} else {
+				System.out.println("Opcion no valida");
 			}
 		} catch (Exception e) {
 			System.out.println("Entrada invalida.");
