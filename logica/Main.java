@@ -659,27 +659,27 @@ public class Main {
 										+ " te ha derrotado...");
 								enCombate = false;
 							}
-							if (enCombate && rival.getVida() <= 0) {
-								rival.setVida(0);
-								rival.setEstado("Debilitado");
-								System.out.println("¡El " + rival.getNombre() + " rival se ha debilitado!");
+						}
+						if (enCombate && rival.getVida() <= 0) {
+							rival.setVida(0);
+							rival.setEstado("Debilitado");
+							System.out.println("¡El " + rival.getNombre() + " rival se ha debilitado!");
 
-								Pokemon siguienteRival = null;
-								for (Pokemon p : equipoRival) {
-									if (p.getEstado().equals("Vivo") && p.getVida() > 0) {
-										siguienteRival = p;
-										break;
-									}
+							Pokemon siguienteRival = null;
+							for (Pokemon p : equipoRival) {
+								if (p.getEstado().equals("Vivo") && p.getVida() > 0) {
+									siguienteRival = p;
+									break;
 								}
-								if (siguienteRival != null) {
-									rival = siguienteRival;
-									System.out.println("\n¡El Alto Mando " + amElegido.getNombreAltoMando()
-											+ " ha sacado a su " + rival.getNombre() + "!");
-								} else {
-									System.out.println("\n¡Felicidades! Has derrotado al Alto Mando "
-											+ amElegido.getNombreAltoMando() + "!");
-									enCombate = false;
-								}
+							}
+							if (siguienteRival != null) {
+								rival = siguienteRival;
+								System.out.println("\n¡El Alto Mando " + amElegido.getNombreAltoMando()
+										+ " ha sacado a su " + rival.getNombre() + "!");
+							} else {
+								System.out.println("\n¡Felicidades! Has derrotado al Alto Mando "
+										+ amElegido.getNombreAltoMando() + "!");
+								enCombate = false;
 							}
 						}
 					}
@@ -715,37 +715,40 @@ public class Main {
 	public static Jugador cargarPartida() {
 		try {
 			java.io.BufferedReader lectorArchivo = new java.io.BufferedReader(new java.io.FileReader("registros.txt"));
-			
+
 			String datosJugador = lectorArchivo.readLine();
 			if (datosJugador == null) {
 				System.out.println("El archivo está vacío.");
 				lectorArchivo.close();
 				return null;
 			}
-				String[] partesJugador = datosJugador.split(";");
-				Jugador protaCargado = new Jugador(partesJugador[0], partesJugador[1]);
-				lectorArchivo.readLine();
-				
-				String lineaPoke;
-				while ((lineaPoke = lectorArchivo.readLine()) != null) {
-					String[] partesPoke = lineaPoke.split(";");
-					String nombrePoke = partesPoke[0];
-					String estadoPoke = partesPoke[1];
-					Pokemon base = buscarEnPokedex(nombrePoke);
-					
-					if (base != null) {
-						Pokemon clon = new Pokemon(base.getNombre(), base.getHabitat(), base.getPorcentajeAparicion(), base.getVida(), base.getAtaque(), base.getDefensa(), base.getAtaqueEspecial(), base.getDefensaEspecial(), base.getVelocidad(), base.getTipo());
-						clon.setEstado(estadoPoke);
-						clon.setVidaMaxima(base.getVida());
-						if (estadoPoke.equals("Debilitado")) {
-							clon.setVida(0);
-						}
-						protaCargado.getMisPokemons().add(clon);
+			String[] partesJugador = datosJugador.split(";");
+			Jugador protaCargado = new Jugador(partesJugador[0], partesJugador[1]);
+			lectorArchivo.readLine();
+
+			String lineaPoke;
+			while ((lineaPoke = lectorArchivo.readLine()) != null) {
+				String[] partesPoke = lineaPoke.split(";");
+				String nombrePoke = partesPoke[0];
+				String estadoPoke = partesPoke[1];
+				Pokemon base = buscarEnPokedex(nombrePoke);
+
+				if (base != null) {
+					Pokemon clon = new Pokemon(base.getNombre(), base.getHabitat(), base.getPorcentajeAparicion(),
+							base.getVida(), base.getAtaque(), base.getDefensa(), base.getAtaqueEspecial(),
+							base.getDefensaEspecial(), base.getVelocidad(), base.getTipo());
+					clon.setEstado(estadoPoke);
+					clon.setVidaMaxima(base.getVida());
+					if (estadoPoke.equals("Debilitado")) {
+						clon.setVida(0);
 					}
+					protaCargado.getMisPokemons().add(clon);
 				}
-				lectorArchivo.close();
-				System.out.println("¡Partida cargada exitosamente! Bienvenido de vuelta, " + protaCargado.getNombre() +".");
-				return protaCargado;
+			}
+			lectorArchivo.close();
+			System.out
+					.println("¡Partida cargada exitosamente! Bienvenido de vuelta, " + protaCargado.getNombre() + ".");
+			return protaCargado;
 		} catch (java.io.FileNotFoundException e) {
 			System.out.println("No hay ninguna partida guardada");
 		} catch (Exception e) {
@@ -753,5 +756,5 @@ public class Main {
 		}
 		return null;
 	}
-	
+
 }

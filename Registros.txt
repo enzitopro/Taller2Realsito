@@ -1,7 +1,7 @@
-enzito;EmmaLaArdillaRabiosa
-Magikarp;Vivo
-Zubat;Vivo
-Slugma;Vivo
-Ekans;Vivo
-Eevee;Vivo
-Dracovish;Vivo
+enzito;EmmaLaArdillaRabiosa,EmmaLaArdillaRabiosa
+Slugma;Debilitado
+Ekans;Debilitado
+Eevee;Debilitado
+Dracovish;Debilitado
+Dracovish;Debilitado
+Eevee;Debilitado
