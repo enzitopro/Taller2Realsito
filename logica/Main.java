@@ -269,8 +269,14 @@ public class Main {
 					System.out.println("No parece haber ningun Pokemon ahora...");
 					return;
 				}
-
-				double probabilidadAleatoria = Math.random() * 100;
+				
+				double topePorcentajes = 0;
+				for (Pokemon p : salvajes) {
+					topePorcentajes += p.getPorcentajeAparicion();
+				}
+				
+				
+				double probabilidadAleatoria = Math.random() * topePorcentajes;
 				Pokemon pokemonEncontrado = null;
 				double probAcumulada = 0;
 
@@ -282,7 +288,7 @@ public class Main {
 					}
 				}
 				if (pokemonEncontrado == null) {
-					pokemonEncontrado = salvajes.get(0);
+					pokemonEncontrado = salvajes.get(salvajes.size()-1);
 				}
 
 				System.out.println("Un " + pokemonEncontrado.getNombre() + " salvaje ha aparecido");
@@ -297,6 +303,7 @@ public class Main {
 							pokemonEncontrado.getAtaque(), pokemonEncontrado.getDefensa(),
 							pokemonEncontrado.getAtaqueEspecial(), pokemonEncontrado.getDefensaEspecial(),
 							pokemonEncontrado.getVelocidad(), pokemonEncontrado.getTipo());
+					nuevoAtrapado.setVidaMaxima(pokemonEncontrado.getVida());
 					protagonista.getMisPokemons().add(nuevoAtrapado);
 				} else {
 					System.out.println("Escapaste sin problemas");
