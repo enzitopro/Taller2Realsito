@@ -83,16 +83,16 @@ public class Main {
 					retarGimnasio(protagonista, lector);
 					break;
 				case 5:
-					// desafiarAltoMando();
+					desafiarAltoMando(protagonista, lector);
 					break;
 				case 6:
 					curarPokemon(protagonista);
 					break;
 				case 7:
-					// guardarContinuar();
+					guardarPartida(protagonista);
 					break;
 				case 8:
-					// guardarSalir();
+					guardarPartida(protagonista);
 					salirMenu = true;
 					break;
 				default:
@@ -644,6 +644,16 @@ public class Main {
 	public static void guardarPartida(Jugador protagonista) {
 		try {
 			java.io.BufferedWriter escritor = new java.io.BufferedWriter(new java.io.FileWriter("registros.txt"));
+			escritor.write(protagonista.getNombre()+";"+protagonista.getMedallas());
+			escritor.newLine();
+			
+			for (Pokemon p : protagonista.getMisPokemons()) {
+				escritor.write(p.getNombre()+";"+p.getEstado());
+				escritor.newLine();
+			}
+			
+			escritor.close();
+			System.out.println("¡Partida guardada con exito!");
 		} catch (Exception e) {
 			System.out.println("ERROR AL GUARDAR LA PARTIDA");
 		}
