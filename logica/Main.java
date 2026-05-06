@@ -831,8 +831,18 @@ public class Main {
 				}
 			}
 			lectorArchivo.close();
-			System.out
-					.println("¡Partida cargada exitosamente! Bienvenido de vuelta, " + protaCargado.getNombre() + ".");
+			System.out.println("¡Partida cargada exitosamente! Bienvenido de vuelta, " + protaCargado.getNombre() + ".");
+			if (!protaCargado.getMedallas().equals("none")) {
+				String[] medallasGanadas = protaCargado.getMedallas().split(",");
+				
+				for (Gimnasios gym : listaGimnasios) {
+					for (String medalla : medallasGanadas) {
+						if (gym.getNombreLider().equals(medalla)) {
+							gym.setEstadoLider("Derrotado");
+						}
+					}
+				}
+			}
 			return protaCargado;
 		} catch (java.io.FileNotFoundException e) {
 			System.out.println("No hay ninguna partida guardada");
