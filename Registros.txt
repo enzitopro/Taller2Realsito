@@ -1,7 +1,7 @@
-enzito;EmmaLaArdillaRabiosa,EmmaLaArdillaRabiosa
-Slugma;Debilitado
-Ekans;Debilitado
-Eevee;Debilitado
-Dracovish;Debilitado
-Dracovish;Debilitado
-Eevee;Debilitado
+enzito;EmmaLaArdillaRabiosa,MartinNegro,Ferran
+Psyduck;Vivo
+Excadrill;Vivo
+Charizard;Vivo
+Victreebel;Vivo
+Dracovish;Vivo
+Lapras;Vivo
