@@ -4,12 +4,15 @@
 
 ```text
 Taller1Real/
-├── src/
-│   └── Taller1/
-│       └── Taller1.java       # main del programa
-├── Usuarios.txt               # archivo de texto de usuarios usado para este programa
-├── Registros.txt              # base de datos usado para este programa (nota: contiene actividades test)
-├── .project                   
-├── .classpath                 
+├── logica/
+│   └── Main.java #aplicacion principal del programa
+│           
+├── Alto Mando.txt             # base de datos de los altos mandos
+├── Gimnasios.txt              # base de datos de los gimnasios
+├── Habitats.txt               # base de datos de los habitats de pokemons
+├── Pokedex.txt                # base de datos de pokemons
+├── Registros.txt              # archivo de partida guardada (incluye una partida test)
+├── .project                   # archivos eclipse
+├── .classpath                 # archivos eclipse
 └── README.md                  
 
