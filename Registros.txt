@@ -1,7 +1,9 @@
-enzito;EmmaLaArdillaRabiosa,MartinNegro,Ferran
-Psyduck;Vivo
-Excadrill;Vivo
+enzito;EmmaLaArdillaRabiosa,MartinNegro,Ferran,EmmaLaArdillaRabiosa,MartinNegro,Ferran
+Excadrill;Debilitado
 Charizard;Vivo
 Victreebel;Vivo
-Dracovish;Vivo
+Dracovish;Debilitado
 Lapras;Vivo
+Scizor;Vivo
+Ekans;Vivo
+Eevee;Vivo

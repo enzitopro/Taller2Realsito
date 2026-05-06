@@ -271,13 +271,12 @@ public class Main {
 					System.out.println("No parece haber ningun Pokemon ahora...");
 					return;
 				}
-				
+
 				double topePorcentajes = 0;
 				for (Pokemon p : salvajes) {
 					topePorcentajes += p.getPorcentajeAparicion();
 				}
-				
-				
+
 				double probabilidadAleatoria = Math.random() * topePorcentajes;
 				Pokemon pokemonEncontrado = null;
 				double probAcumulada = 0;
@@ -290,7 +289,7 @@ public class Main {
 					}
 				}
 				if (pokemonEncontrado == null) {
-					pokemonEncontrado = salvajes.get(salvajes.size()-1);
+					pokemonEncontrado = salvajes.get(salvajes.size() - 1);
 				}
 
 				System.out.println("Un " + pokemonEncontrado.getNombre() + " salvaje ha aparecido");
@@ -434,7 +433,7 @@ public class Main {
 							+ miLuchador.getTipo());
 					System.out.println("Rival: " + rival.getNombre() + " (HP: " + rival.getVida() + ") | Tipo: "
 							+ rival.getTipo());
-					System.out.println("1) Atacar / 2) Huir");
+					System.out.println("1) Atacar / 2) Huir / 3) Cambiar pokemon");
 					System.out.print("Ingrese su accion: ");
 
 					int accion = Integer.valueOf(lector.nextLine());
@@ -515,9 +514,44 @@ public class Main {
 								enCombate = false;
 							}
 						}
+					} else if (accion == 3) {
+						System.out.println("\n--- TU EQUIPO ---");
+						for (int j = 0; j < miEquipo.size(); j++) {
+							Pokemon p = miEquipo.get(j);
+							System.out.println((j + 1) + ") " + p.getNombre() + " | HP: " + p.getVida() + "/"
+									+ p.getVidaMaxima() + " | Estado: " + p.getEstado());
+						}
+						System.out.println("0) Cancelar");
+						System.out.print("Elige a quién enviar: ");
+
+						int cambio = Integer.valueOf(lector.nextLine());
+
+						if (cambio == 0) {
+							System.out.println("Cambio cancelado.");
+							continue;
+						} else if (cambio > 0 && cambio <= miEquipo.size()) {
+							Pokemon elegido = miEquipo.get(cambio - 1);
+
+							if (elegido == miLuchador) {
+								System.out.println("¡" + elegido.getNombre() + " ya está en combate!");
+								continue;
+							} else if (elegido.getVida() <= 0 || elegido.getEstado().equals("Debilitado")) {
+								System.out.println("¡" + elegido.getNombre() + " no tiene energía para luchar!");
+								continue;
+							} else {
+								System.out.println("¡Vuelve, " + miLuchador.getNombre() + "!");
+								miLuchador = elegido;
+								System.out.println("¡Adelante, " + miLuchador.getNombre() + "!");
+
+								System.out.println("\n¡El " + rival.getNombre() + " rival aprovecha el cambio para atacar!");
+								ejecutarAtaque(rival, miLuchador);
+							}
+						} else {
+							System.out.println("Opción no válida.");
+							continue;
+						}
 					}
 				}
-
 			}
 		} catch (Exception e) {
 			System.out.println("Entrada no valida");
@@ -636,7 +670,7 @@ public class Main {
 							+ miLuchador.getTipo());
 					System.out.println("Rival: " + rival.getNombre() + " (HP: " + rival.getVida() + ") | Tipo: "
 							+ rival.getTipo());
-					System.out.println("1) Atacar / 2) Huir");
+					System.out.println("1) Atacar / 2) Huir / 3) Cambiar pokemon");
 					System.out.print("Ingrese su opcion: ");
 
 					int accion = Integer.valueOf(lector.nextLine());
@@ -695,6 +729,44 @@ public class Main {
 								enCombate = false;
 							}
 						}
+					} else if (accion == 3) {
+						System.out.println("\n--- TU EQUIPO ---");
+						for (int j = 0; j < miEquipo.size(); j++) {
+							Pokemon p = miEquipo.get(j);
+							System.out.println((j + 1) + ") " + p.getNombre() + " | HP: " + p.getVida() + "/"
+									+ p.getVidaMaxima() + " | Estado: " + p.getEstado());
+						}
+						System.out.println("0) Cancelar");
+						System.out.print("Elige a quién enviar: ");
+
+						int cambio = Integer.valueOf(lector.nextLine());
+
+						if (cambio == 0) {
+							System.out.println("Cambio cancelado.");
+							continue;
+						} else if (cambio > 0 && cambio <= miEquipo.size()) {
+							Pokemon elegido = miEquipo.get(cambio - 1);
+
+							if (elegido == miLuchador) {
+								System.out.println("¡" + elegido.getNombre() + " ya está en combate!");
+								continue;
+							} else if (elegido.getVida() <= 0 || elegido.getEstado().equals("Debilitado")) {
+								System.out.println("¡" + elegido.getNombre() + " no tiene energía para luchar!");
+								continue;
+							} else {
+								System.out.println("¡Vuelve, " + miLuchador.getNombre() + "!");
+								miLuchador = elegido;
+								System.out.println("¡Adelante, " + miLuchador.getNombre() + "!");
+
+								System.out.println(
+										"\n¡El " + rival.getNombre() + " rival aprovecha el cambio para atacar!");
+								ejecutarAtaque(rival, miLuchador);
+							}
+						} else {
+							System.out.println("Opción no válida.");
+							continue;
+						}
+
 					}
 				}
 			} else {
