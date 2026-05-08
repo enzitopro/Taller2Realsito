@@ -12,6 +12,8 @@ Taller1Real/
 ├── Habitats.txt               # base de datos de los habitats de pokemons
 ├── Pokedex.txt                # base de datos de pokemons
 ├── Registros.txt              # archivo de partida guardada (incluye una partida test)
+├── DiagramaDeClase.pdf        # diagrama de clases
+├── ModeloDominio.pdf          # modelo de dominio
 ├── .project                   # archivos eclipse
 ├── .classpath                 # archivos eclipse
 └── README.md                  
